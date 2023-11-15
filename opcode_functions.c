@@ -1,5 +1,5 @@
 #include "monty.h"
-
+stack_t *stack = NULL;
 /**
  * push - Pushes an element to the stack
  * @stack: Pointer to the head of the stack
@@ -33,8 +33,12 @@ void push(stack_t **stack, int value) {
  *
  * This function prints all the elements present in the stack from top to bottom.
  */
-void pall(stack_t **stack, unsigned int line_number) {
+void pall(stack_t **stack) {
     stack_t *current = *stack;
+    if (current == NULL) {
+        return;
+    }
+
     while (current != NULL) {
         printf("%d\n", current->n);
         current = current->next;
