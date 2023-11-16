@@ -26,8 +26,6 @@ typedef struct stack_s
     struct stack_s *next;
 } stack_t;
 
-extern stack_t *stack;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -45,10 +43,18 @@ typedef struct instruction_s
 /* Function prototypes */
 void push(stack_t **stack, int value);
 void pall(stack_t **stack);
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void div_op(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
 void print_usage_error(void);
 void print_file_open_error(const char *filename);
 void print_unknown_instruction_error(unsigned int line_number, const char *opcode);
 void print_malloc_error(void);
-void process_line(char *line, unsigned int line_number);
+void process_line(char *line, stack_t **stack, unsigned int line_number);
 #endif /* MONTY_H */
 

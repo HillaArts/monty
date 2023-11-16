@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * main - Entry point for the Monty bytecode interpreter
  * @argc: Number of command-line arguments
@@ -12,19 +11,22 @@
  * Return: EXIT_SUCCESS upon successful execution, EXIT_FAILURE if an error occurs
  */
 int main(int argc, char *argv[]) {
-	char *line = NULL;
+    char *line = NULL;
     size_t len = 0;
     ssize_t read;
     unsigned int line_number = 1; /* Counter for line number */
-    FILE *file = fopen(argv[1], "r");
+    FILE *file;
+
+    stack_t *stack = NULL;
 
     if (argc != 2) {
-        print_usage_error();
+        fprintf(stderr, "USAGE: monty file\n");
         return EXIT_FAILURE;
     }
 
+    file = fopen(argv[1], "r");
     if (file == NULL) {
-        print_file_open_error(argv[1]);
+        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
         return EXIT_FAILURE;
     }
 
@@ -34,7 +36,7 @@ int main(int argc, char *argv[]) {
             line[read - 1] = '\0';
         }
 
-        process_line(line, line_number); /* Process each line */
+        process_line(line, &stack, line_number); /* Pass line number to function */
         line_number++;
     }
 

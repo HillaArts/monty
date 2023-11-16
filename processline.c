@@ -8,10 +8,9 @@
  * and executes the corresponding opcode functions (push, pall, etc.).
  */
 
-void process_line(char *line, unsigned int line_number) {
+void process_line(char *line, stack_t **stack, unsigned int line_number) {
     char *opcode;
     int value;
-    extern stack_t *stack; /* External declaration of stack */
 
     opcode = strtok(line, " \n\t\r");
 
@@ -27,9 +26,9 @@ void process_line(char *line, unsigned int line_number) {
         }
 
         value = atoi(arg);
-        push(&stack, value); /* Implement push logic */
+        push(stack, value); /* Implement push logic */
     } else if (strcmp(opcode, "pall") == 0) {
-        pall(&stack); /* Implement pall logic */
+        pall(stack); /* Implement pall logic */
     } else {
         fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
         exit(EXIT_FAILURE);
